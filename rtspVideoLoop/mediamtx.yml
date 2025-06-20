@@ -1,0 +1,16 @@
+# mediamtx.yml
+# ────────────────────────────────────────────────────────────────
+# 1) Enable RTSP on port 8554
+rtsp: yes
+rtspAddress: ":554"
+rtspTransports: [tcp, udp]
+rtspAuthMethods: [basic]
+
+# 2) Delegate ALL authentication to an external HTTP service:
+authMethod: http
+authHTTPAddress: "http://localhost:9000/auth"
+
+# 3) Define your stream path (publisher only):
+paths:
+  stream1:
+    source: publisher
